@@ -84,17 +84,25 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 /* CONTACT FORM */
 document.getElementById('contactForm').addEventListener('submit', function(e) {
   e.preventDefault();
-  const btn = this.querySelector('.btn-submit');
-  const orig = btn.innerHTML;
-  btn.innerHTML = '✓ Odesláno – ozveme se do 24 hodin!';
-  btn.style.background = '#16a34a';
-  btn.disabled = true;
-  setTimeout(() => {
-    btn.innerHTML = orig;
-    btn.style.background = '';
-    btn.disabled = false;
-    this.reset();
-  }, 5000);
+  const data = new FormData(this);
+  const name    = data.get('name') || '';
+  const phone   = data.get('phone') || '';
+  const email   = data.get('email') || '';
+  const service = data.get('service') || '';
+  const message = data.get('message') || '';
+
+  const body = [
+    `Jméno: ${name}`,
+    `Telefon: ${phone}`,
+    `E-mail: ${email}`,
+    service ? `Zájem: ${service}` : '',
+    message ? `\nCo vás brzdí:\n${message}` : '',
+  ].filter(Boolean).join('\n');
+
+  window.location.href =
+    `mailto:tvujkancl@gmail.com`
+    + `?subject=${encodeURIComponent('Poptávka z webu – ' + name)}`
+    + `&body=${encodeURIComponent(body)}`;
 });
 
 /* ACTIVE NAV HIGHLIGHT */
