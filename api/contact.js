@@ -2,7 +2,7 @@ const nodemailer = require('nodemailer');
 
 const rateLimit = new Map();
 const MAX_REQUESTS = 3;
-const WINDOW_MS = 60 * 60 * 1000; // 1 hodina
+const WINDOW_MS = 60 * 60 * 1000;
 
 function isRateLimited(ip) {
   const now = Date.now();
@@ -16,7 +16,7 @@ function isRateLimited(ip) {
   return false;
 }
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
