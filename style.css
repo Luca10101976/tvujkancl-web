@@ -193,7 +193,7 @@ ul { list-style: none; }
    HERO
    ================================ */
 .hero {
-  min-height: 100svh;
+  min-height: unset;
   display: flex;
   flex-direction: column;
   justify-content: center;

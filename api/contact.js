@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer');
 
 const rateLimit = new Map();
-const MAX_REQUESTS = 3;
+const MAX_REQUESTS = 10;
 const WINDOW_MS = 60 * 60 * 1000;
 
 function isRateLimited(ip) {
