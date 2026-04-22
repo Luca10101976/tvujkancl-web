@@ -361,7 +361,7 @@ ul { list-style: none; }
   border-color: var(--accent);
   color: var(--white);
 }
-.bento-accent p   { color: var(--white); }
+.bento-accent p   { color: var(--white) !important; }
 .bento-accent .bento-num { color: var(--white); opacity: 0.5; }
 .bento-accent .bento-link { color: var(--white); }
 .bento-accent .bento-icon { background: rgba(255,255,255,0.18); color: var(--white); }
@@ -371,7 +371,7 @@ ul { list-style: none; }
   border-color: var(--ink);
   color: var(--white);
 }
-.bento-dark p         { color: rgba(255,255,255,0.9); }
+.bento-dark p         { color: rgba(255,255,255,0.9) !important; }
 .bento-dark .bento-link { color: var(--accent-light); }
 
 .bento-num {

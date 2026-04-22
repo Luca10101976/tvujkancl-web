@@ -82,27 +82,49 @@ const io = new IntersectionObserver((entries) => {
 document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
 /* CONTACT FORM */
-document.getElementById('contactForm').addEventListener('submit', function(e) {
+document.getElementById('contactForm').addEventListener('submit', async function(e) {
   e.preventDefault();
+  const btn = this.querySelector('.btn-submit');
+  const orig = btn.innerHTML;
   const data = new FormData(this);
-  const name    = data.get('name') || '';
-  const phone   = data.get('phone') || '';
-  const email   = data.get('email') || '';
-  const service = data.get('service') || '';
-  const message = data.get('message') || '';
 
-  const body = [
-    `Jméno: ${name}`,
-    `Telefon: ${phone}`,
-    `E-mail: ${email}`,
-    service ? `Zájem: ${service}` : '',
-    message ? `\nCo vás brzdí:\n${message}` : '',
-  ].filter(Boolean).join('\n');
+  btn.disabled = true;
+  btn.innerHTML = 'Odesílám…';
 
-  window.location.href =
-    `mailto:tvujkancl@gmail.com`
-    + `?subject=${encodeURIComponent('Poptávka z webu – ' + name)}`
-    + `&body=${encodeURIComponent(body)}`;
+  try {
+    const res = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name:    data.get('name') || '',
+        phone:   data.get('phone') || '',
+        email:   data.get('email') || '',
+        service: data.get('service') || '',
+        message: data.get('message') || '',
+      }),
+    });
+
+    if (res.ok) {
+      btn.innerHTML = '✓ Odesláno – ozveme se do 24 hodin!';
+      btn.style.background = '#16a34a';
+      this.reset();
+      setTimeout(() => {
+        btn.innerHTML = orig;
+        btn.style.background = '';
+        btn.disabled = false;
+      }, 5000);
+    } else {
+      throw new Error();
+    }
+  } catch {
+    btn.innerHTML = 'Chyba – zkuste prosím znovu';
+    btn.style.background = '#dc2626';
+    setTimeout(() => {
+      btn.innerHTML = orig;
+      btn.style.background = '';
+      btn.disabled = false;
+    }, 4000);
+  }
 });
 
 /* ACTIVE NAV HIGHLIGHT */
