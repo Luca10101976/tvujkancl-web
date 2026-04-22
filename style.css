@@ -1156,6 +1156,76 @@ a.c-info-item:hover {
 .cookie-btn:hover { opacity: 0.88; }
 
 /* ================================
+   JUNCTION / ROZCESTNÍK
+   ================================ */
+.junction-section { padding: 96px 0; }
+.junction-sub {
+  font-size: 17px;
+  color: var(--muted);
+  max-width: 520px;
+  margin: 16px 0 48px;
+  line-height: 1.6;
+}
+.junction-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.junction-card {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 48px 40px;
+  border-radius: 24px;
+  text-decoration: none;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.junction-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 48px rgba(0,0,0,0.12);
+}
+.junction-card--accent {
+  background: var(--accent);
+  color: var(--white);
+}
+.junction-card--dark {
+  background: var(--ink);
+  color: var(--white);
+}
+.junction-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.junction-card h3 {
+  font-size: clamp(24px, 2.5vw, 32px);
+  font-weight: 800;
+  color: var(--white);
+  margin: 0;
+}
+.junction-card p {
+  font-size: 16px;
+  color: rgba(255,255,255,0.8);
+  line-height: 1.65;
+  flex: 1;
+  margin: 0;
+}
+.junction-btn {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--white);
+  margin-top: 8px;
+}
+@media (max-width: 640px) {
+  .junction-grid { grid-template-columns: 1fr; }
+  .junction-card { padding: 36px 28px; }
+}
+
+/* ================================
    ANIMATIONS
    ================================ */
 .reveal {
