@@ -127,6 +127,19 @@ document.getElementById('contactForm').addEventListener('submit', async function
   }
 });
 
+/* COOKIE BANNER */
+(function() {
+  const banner = document.getElementById('cookieBanner');
+  if (localStorage.getItem('cookieOk')) {
+    banner.classList.add('hidden');
+    return;
+  }
+  document.getElementById('cookieAccept').addEventListener('click', () => {
+    localStorage.setItem('cookieOk', '1');
+    banner.classList.add('hidden');
+  });
+})();
+
 /* ACTIVE NAV HIGHLIGHT */
 const sections = document.querySelectorAll('section[id], header[id]');
 const navAs    = document.querySelectorAll('.nav-links a[href^="#"]');

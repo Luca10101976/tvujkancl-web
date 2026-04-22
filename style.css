@@ -1108,6 +1108,52 @@ a.c-info-item:hover {
   transition: color 0.2s;
 }
 .footer-bottom a:hover { color: var(--white); }
+.footer-legal {
+  margin-top: 6px;
+  font-size: 12px !important;
+  color: rgba(255,255,255,0.35) !important;
+}
+
+/* COOKIE BANNER */
+.cookie-banner {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--ink);
+  color: rgba(255,255,255,0.85);
+  border-radius: 14px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-size: 13px;
+  line-height: 1.5;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  z-index: 9999;
+  max-width: 600px;
+  width: calc(100% - 48px);
+  transition: opacity 0.3s, transform 0.3s;
+}
+.cookie-banner.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%) translateY(16px);
+}
+.cookie-banner a { color: var(--accent); }
+.cookie-btn {
+  flex-shrink: 0;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+}
+.cookie-btn:hover { opacity: 0.88; }
 
 /* ================================
    ANIMATIONS
