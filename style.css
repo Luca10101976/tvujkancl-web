@@ -1192,6 +1192,27 @@ a.c-info-item:hover {
   background: var(--ink);
   color: var(--white);
 }
+.junction-card--light {
+  background: var(--paper);
+  color: var(--ink);
+  border: 1.5px solid var(--border);
+}
+.junction-card--light h3 { color: var(--ink); }
+.junction-card--light p  { color: var(--muted); }
+.junction-card--light .junction-icon { background: rgba(0,0,0,0.06); }
+.junction-card--light .junction-btn  { color: var(--accent); }
+.junction-card--warm {
+  background: var(--accent-light);
+  color: var(--ink);
+}
+.junction-card--warm h3 { color: var(--ink); }
+.junction-card--warm p  { color: var(--muted); }
+.junction-card--warm .junction-icon { background: rgba(200,80,26,0.12); }
+.junction-card--warm .junction-btn  { color: var(--accent); }
+.junction-grid--4 { grid-template-columns: 1fr 1fr; }
+@media (max-width: 640px) {
+  .junction-grid--4 { grid-template-columns: 1fr; }
+}
 .junction-icon {
   width: 64px;
   height: 64px;
