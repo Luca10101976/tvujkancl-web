@@ -1197,18 +1197,18 @@ a.c-info-item:hover {
   color: var(--ink);
   border: 1.5px solid var(--border);
 }
-.junction-card--light h3 { color: var(--ink); }
-.junction-card--light p  { color: var(--muted); }
+.junction-card--light h3 { color: var(--ink) !important; }
+.junction-card--light p  { color: var(--muted) !important; }
 .junction-card--light .junction-icon { background: rgba(0,0,0,0.06); }
-.junction-card--light .junction-btn  { color: var(--accent); }
+.junction-card--light .junction-btn  { color: var(--accent) !important; }
 .junction-card--warm {
   background: var(--accent-light);
   color: var(--ink);
 }
-.junction-card--warm h3 { color: var(--ink); }
-.junction-card--warm p  { color: var(--muted); }
+.junction-card--warm h3 { color: var(--ink) !important; }
+.junction-card--warm p  { color: var(--muted) !important; }
 .junction-card--warm .junction-icon { background: rgba(200,80,26,0.12); }
-.junction-card--warm .junction-btn  { color: var(--accent); }
+.junction-card--warm .junction-btn  { color: var(--accent) !important; }
 .junction-grid--4 { grid-template-columns: 1fr 1fr; }
 @media (max-width: 640px) {
   .junction-grid--4 { grid-template-columns: 1fr; }
