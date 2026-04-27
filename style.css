@@ -1300,6 +1300,17 @@ a.c-info-item:hover {
 @media (max-width: 640px) {
   .junction-grid--4 { grid-template-columns: 1fr; }
 }
+.junction-grid--5 { grid-template-columns: 1fr 1fr; }
+.junction-card--full { grid-column: span 2; }
+@media (max-width: 640px) {
+  .junction-grid--5 { grid-template-columns: 1fr; }
+  .junction-card--full { grid-column: span 1; }
+}
+.junction-card--forest {
+  background: #2D4A3E;
+  color: var(--white);
+}
+.junction-card--forest .junction-icon { background: rgba(255,255,255,0.12); }
 .junction-icon {
   width: 64px;
   height: 64px;
