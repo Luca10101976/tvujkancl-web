@@ -687,6 +687,21 @@ ul { list-style: none; }
 .pricing-card--featured .pricing-price { color: var(--white); }
 .pricing-card--featured .pricing-price span { color: rgba(255,255,255,0.45); }
 
+.pricing-hours {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  background: var(--accent-light);
+  border-radius: 100px;
+  padding: 3px 11px;
+  margin: 6px 0 18px;
+}
+.pricing-card--featured .pricing-hours {
+  background: rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.85);
+}
+
 .pricing-who {
   font-size: 14px;
   color: var(--muted);
