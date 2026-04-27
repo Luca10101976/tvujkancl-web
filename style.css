@@ -702,6 +702,39 @@ ul { list-style: none; }
   color: rgba(255,255,255,0.85);
 }
 
+.pricing-volume {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+}
+.pricing-card--featured .pricing-volume {
+  border-color: rgba(255,255,255,0.1);
+}
+.pricing-volume-list {
+  list-style: none;
+  margin: 8px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.pricing-volume-list li {
+  font-size: 13px;
+  color: var(--muted);
+  padding-left: 16px;
+  position: relative;
+}
+.pricing-volume-list li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  color: var(--muted);
+  opacity: 0.5;
+}
+.pricing-card--featured .pricing-volume-list li,
+.pricing-card--featured .pricing-volume-list li::before {
+  color: rgba(255,255,255,0.5);
+}
+
 .pricing-who {
   font-size: 14px;
   color: var(--muted);
