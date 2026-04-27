@@ -761,6 +761,33 @@ ul { list-style: none; }
   border-color: #b84616;
 }
 
+/* Individuální karta — přes celou šířku */
+.pricing-card--custom {
+  grid-column: 1 / -1;
+  flex-direction: row;
+  align-items: center;
+  gap: 48px;
+}
+.pricing-custom-left {
+  flex: 1;
+  min-width: 0;
+}
+.pricing-custom-right {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.pricing-custom-right .pricing-features {
+  margin-bottom: 24px;
+}
+@media (max-width: 640px) {
+  .pricing-card--custom {
+    flex-direction: column;
+    gap: 24px;
+  }
+}
+
 /* Extras table */
 .extras-wrap {
   background: var(--white);
