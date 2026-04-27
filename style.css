@@ -616,6 +616,15 @@ ul { list-style: none; }
   line-height: 1.6;
 }
 
+.pricing-intro {
+  font-size: 16px;
+  color: var(--muted);
+  margin-top: 16px;
+  margin-bottom: 48px;
+  max-width: 580px;
+  line-height: 1.7;
+}
+
 .pricing-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
