@@ -1,5 +1,3 @@
-const nodemailer = require('nodemailer');
-
 const rateLimit = new Map();
 const MAX_REQUESTS = 10;
 const WINDOW_MS = 60 * 60 * 1000;
@@ -37,12 +35,11 @@ module.exports = async function handler(req, res) {
 
   const { name, phone, email, service, message, website } = req.body || {};
 
-  // honeypot — boti vyplní skryté pole "website"
+  // honeypot
   if (website) {
     return res.status(200).json({ ok: true });
   }
 
-  // Povinná pole + validace
   const cleanName    = sanitize(name, 100);
   const cleanEmail   = sanitize(email, 200);
   const cleanPhone   = sanitize(phone, 30);
@@ -56,22 +53,12 @@ module.exports = async function handler(req, res) {
     return res.status(400).json({ error: 'Neplatný e-mail.' });
   }
 
-  if (!process.env.GMAIL_PASS) {
-    console.error('GMAIL_PASS environment variable is not set');
+  if (!process.env.RESEND_API_KEY) {
+    console.error('RESEND_API_KEY is not set');
     return res.status(500).json({ error: 'Chyba konfigurace serveru.' });
   }
 
-  const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 465,
-    secure: true,
-    auth: {
-      user: 'tvujkancl@gmail.com',
-      pass: process.env.GMAIL_PASS,
-    },
-  });
-
-  const body = [
+  const bodyText = [
     `Jméno: ${cleanName}`,
     `Telefon: ${cleanPhone || '—'}`,
     `E-mail: ${cleanEmail}`,
@@ -80,16 +67,31 @@ module.exports = async function handler(req, res) {
   ].filter(Boolean).join('\n');
 
   try {
-    await transporter.sendMail({
-      from: '"Tvůj Kancl web" <tvujkancl@gmail.com>',
-      to: 'tvujkancl@gmail.com',
-      replyTo: cleanEmail,
-      subject: `Poptávka z webu – ${cleanName}`,
-      text: body,
+    const response = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        from: 'Tvuj Kancl web <info@tvujkancl.online>',
+        to: ['tvujkancl@gmail.com'],
+        reply_to: cleanEmail,
+        subject: `Poptavka z webu - ${cleanName}`,
+        text: bodyText,
+      }),
     });
-    res.status(200).json({ ok: true });
+
+    if (response.ok) {
+      return res.status(200).json({ ok: true });
+    }
+
+    const errData = await response.json().catch(() => ({}));
+    console.error('Resend error:', errData);
+    return res.status(500).json({ error: 'Odeslání se nezdařilo, zkuste prosím znovu.' });
+
   } catch (err) {
-    console.error('Mail error:', err.message);
-    res.status(500).json({ error: 'Odeslání se nezdařilo, zkuste prosím znovu.' });
+    console.error('Fetch error:', err.message);
+    return res.status(500).json({ error: 'Odeslání se nezdařilo, zkuste prosím znovu.' });
   }
 };
