@@ -115,16 +115,18 @@ document.getElementById('contactForm').addEventListener('submit', async function
         btn.disabled = false;
       }, 5000);
     } else {
-      throw new Error();
+      let errMsg = 'Chyba – zkuste prosím znovu';
+      try { const d = await res.json(); if (d.error) errMsg = d.error; } catch {}
+      throw new Error(errMsg);
     }
-  } catch {
-    btn.innerHTML = 'Chyba – zkuste prosím znovu';
+  } catch (err) {
+    btn.innerHTML = err.message || 'Chyba – zkuste prosím znovu';
     btn.style.background = '#dc2626';
     setTimeout(() => {
       btn.innerHTML = orig;
       btn.style.background = '';
       btn.disabled = false;
-    }, 4000);
+    }, 6000);
   }
 });
 
