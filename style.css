@@ -147,6 +147,13 @@ ul { list-style: none; }
 }
 .nav-links a:hover { color: var(--ink); }
 
+.nav-back {
+  opacity: 0.5;
+  font-size: 13px !important;
+  letter-spacing: 0.01em;
+}
+.nav-back:hover { opacity: 1; }
+
 .nav-btn {
   background: var(--ink) !important;
   color: var(--white) !important;
