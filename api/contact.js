@@ -43,9 +43,9 @@ module.exports = async function handler(req, res) {
   }
 
   // Povinná pole + validace
-  const cleanName  = sanitize(name, 100);
-  const cleanEmail = sanitize(email, 200);
-  const cleanPhone = sanitize(phone, 30);
+  const cleanName    = sanitize(name, 100);
+  const cleanEmail   = sanitize(email, 200);
+  const cleanPhone   = sanitize(phone, 30);
   const cleanService = sanitize(service, 200);
   const cleanMessage = sanitize(message, 2000);
 
@@ -56,8 +56,15 @@ module.exports = async function handler(req, res) {
     return res.status(400).json({ error: 'Neplatný e-mail.' });
   }
 
+  if (!process.env.GMAIL_PASS) {
+    console.error('GMAIL_PASS environment variable is not set');
+    return res.status(500).json({ error: 'Chyba konfigurace serveru.' });
+  }
+
   const transporter = nodemailer.createTransport({
-    service: 'gmail',
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
     auth: {
       user: 'tvujkancl@gmail.com',
       pass: process.env.GMAIL_PASS,
@@ -66,7 +73,7 @@ module.exports = async function handler(req, res) {
 
   const body = [
     `Jméno: ${cleanName}`,
-    `Telefon: ${cleanPhone}`,
+    `Telefon: ${cleanPhone || '—'}`,
     `E-mail: ${cleanEmail}`,
     cleanService ? `Zájem: ${cleanService}` : '',
     cleanMessage ? `\nCo vás brzdí:\n${cleanMessage}` : '',
@@ -74,8 +81,9 @@ module.exports = async function handler(req, res) {
 
   try {
     await transporter.sendMail({
-      from: 'tvujkancl@gmail.com',
+      from: '"Tvůj Kancl web" <tvujkancl@gmail.com>',
       to: 'tvujkancl@gmail.com',
+      replyTo: cleanEmail,
       subject: `Poptávka z webu – ${cleanName}`,
       text: body,
     });
@@ -84,4 +92,4 @@ module.exports = async function handler(req, res) {
     console.error('Mail error:', err.message);
     res.status(500).json({ error: 'Odeslání se nezdařilo, zkuste prosím znovu.' });
   }
-}
+};
