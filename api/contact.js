@@ -1,3 +1,5 @@
+const nodemailer = require('nodemailer');
+
 const rateLimit = new Map();
 const MAX_REQUESTS = 10;
 const WINDOW_MS = 60 * 60 * 1000;
@@ -53,10 +55,13 @@ module.exports = async function handler(req, res) {
     return res.status(400).json({ error: 'Neplatný e-mail.' });
   }
 
-  if (!process.env.RESEND_API_KEY) {
-    console.error('RESEND_API_KEY is not set');
-    return res.status(500).json({ error: 'Chyba konfigurace serveru.' });
-  }
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'tvujkancl@gmail.com',
+      pass: process.env.GMAIL_PASS,
+    },
+  });
 
   const bodyText = [
     `Jméno: ${cleanName}`,
@@ -67,31 +72,16 @@ module.exports = async function handler(req, res) {
   ].filter(Boolean).join('\n');
 
   try {
-    const response = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        from: 'Tvuj Kancl web <info@tvujkancl.online>',
-        to: ['tvujkancl@gmail.com'],
-        reply_to: cleanEmail,
-        subject: `Poptavka z webu - ${cleanName}`,
-        text: bodyText,
-      }),
+    await transporter.sendMail({
+      from: 'tvujkancl@gmail.com',
+      to: 'tvujkancl@gmail.com',
+      replyTo: cleanEmail,
+      subject: `Poptávka z webu – ${cleanName}`,
+      text: bodyText,
     });
-
-    if (response.ok) {
-      return res.status(200).json({ ok: true });
-    }
-
-    const errData = await response.json().catch(() => ({}));
-    console.error('Resend error:', errData);
-    return res.status(500).json({ error: 'Odeslání se nezdařilo, zkuste prosím znovu.' });
-
+    return res.status(200).json({ ok: true });
   } catch (err) {
-    console.error('Fetch error:', err.message);
+    console.error('Mail error:', err.message);
     return res.status(500).json({ error: 'Odeslání se nezdařilo, zkuste prosím znovu.' });
   }
 };

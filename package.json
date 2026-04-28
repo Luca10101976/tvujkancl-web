@@ -1,5 +1,7 @@
 {
   "name": "tvujkancl",
   "version": "1.0.0",
-  "dependencies": {}
+  "dependencies": {
+    "nodemailer": "^6.9.13"
+  }
 }
