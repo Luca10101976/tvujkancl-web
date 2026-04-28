@@ -82,6 +82,6 @@ module.exports = async function handler(req, res) {
     return res.status(200).json({ ok: true });
   } catch (err) {
     console.error('Mail error:', err.message);
-    return res.status(500).json({ error: err.message });
+    return res.status(500).json({ error: 'Odeslání se nezdařilo, zkuste prosím znovu.' });
   }
 };
