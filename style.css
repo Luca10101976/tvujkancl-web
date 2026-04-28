@@ -482,7 +482,7 @@ ul { list-style: none; }
   transition: all 0.2s;
 }
 .btn-cta:hover {
-  background: #b84616;
+  background: #245259;
   transform: scale(1.03);
 }
 
@@ -833,8 +833,8 @@ ul { list-style: none; }
   border: 2px solid var(--accent);
 }
 .pricing-btn--main:hover {
-  background: #b84616;
-  border-color: #b84616;
+  background: #245259;
+  border-color: #245259;
 }
 
 /* Individuální karta — přes celou šířku */
@@ -1156,7 +1156,7 @@ a.c-info-item:hover {
   margin-top: 4px;
 }
 .btn-submit:hover {
-  background: #b84616;
+  background: #245259;
   transform: translateY(-1px);
 }
 
