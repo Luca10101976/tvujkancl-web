@@ -709,23 +709,29 @@ ul { list-style: none; }
 /* Podlouhlá (wide horizontal) pricing card pro lékaře */
 .pricing-card--wide {
   display: grid;
-  grid-template-columns: 3fr 2fr;
-  gap: 48px;
-  align-items: start;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  align-items: stretch;
 }
-.pricing-card-left,
+.pricing-card-left {
+  display: flex;
+  flex-direction: column;
+  padding-right: 40px;
+}
 .pricing-card-right {
   display: flex;
   flex-direction: column;
-}
-.pricing-card-right {
-  padding-top: 8px;
+  border-left: 1px solid var(--border);
+  padding-left: 40px;
+  gap: 14px;
 }
 @media (max-width: 768px) {
   .pricing-card--wide {
     grid-template-columns: 1fr;
     gap: 28px;
   }
+  .pricing-card-left { padding-right: 0; }
+  .pricing-card-right { border-left: none; border-top: 1px solid var(--border); padding-left: 0; padding-top: 28px; }
 }
 
 .pricing-card--featured {
