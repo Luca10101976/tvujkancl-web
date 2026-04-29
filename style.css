@@ -688,7 +688,6 @@ ul { list-style: none; }
 }
 .pricing-grid--single {
   grid-template-columns: 1fr;
-  max-width: 960px;
 }
 
 .pricing-card {
