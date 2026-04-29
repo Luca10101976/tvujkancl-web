@@ -1461,6 +1461,7 @@ a.c-info-item:hover {
   .about-inner { grid-template-columns: 1fr; gap: 52px; }
 
   .pricing-grid { grid-template-columns: 1fr; max-width: 480px; }
+  .pricing-grid--single { max-width: 100%; }
 
   .how-grid {
     grid-template-columns: 1fr;
@@ -1500,4 +1501,8 @@ a.c-info-item:hover {
 
   .footer-inner { flex-direction: column; align-items: flex-start; }
   .footer-nav   { gap: 20px; }
+
+  .pricing-section { padding: 72px 0; }
+  .pricing-grid { margin-bottom: 32px; }
+  .pricing-card { padding: 28px 24px; border-radius: 20px; }
 }
